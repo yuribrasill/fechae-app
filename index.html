@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="theme-color" content="#0B2F24">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FECHAÊ! — Seu parceiro comercial de bolso</title>
+<link rel="icon" href="assets/icone-fechae.png"><link rel="stylesheet" href="fonts.css">
+<style>
+:root{--g:#0B2F24;--g2:#124236;--lime:#C6FF52;--em:#1DB954;--bg:#071F18;--ink:#F4FFF7;--mut:#9DBFB0;--or:#FF8A3D;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}html,body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+h1,h2,h3,.p{font-family:Poppins,Inter,sans-serif}
+#app{max-width:430px;margin:0 auto;min-height:100vh;padding:14px 16px 110px;background:radial-gradient(500px 300px at 90% -5%,rgba(198,255,82,.14),transparent),var(--bg)}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.top img{height:34px}
+.tag{font-size:11px;padding:4px 9px;border-radius:99px;background:rgba(198,255,82,.14);color:var(--lime);font-weight:600}
+.card{background:linear-gradient(160deg,var(--g2),var(--g));border:1px solid rgba(198,255,82,.16);border-radius:20px;padding:16px;margin-bottom:14px}
+.hero{display:flex;gap:12px;align-items:center}.hero img{width:92px;height:92px;border-radius:18px;object-fit:cover;object-position:top}
+h1{font-size:21px;line-height:1.2}h2{font-size:17px;margin-bottom:10px}h3{font-size:15px}.mut{color:var(--mut);font-size:13px}
+.bar{height:10px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden;margin:8px 0 4px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--em),var(--lime));border-radius:9px;transition:width .5s}
+.cta{width:100%;border:0;border-radius:18px;padding:18px;font:800 17px Poppins;background:var(--lime);color:var(--g);cursor:pointer;box-shadow:0 8px 30px rgba(198,255,82,.35);margin-bottom:14px;animation:pl 2.2s infinite}
+@keyframes pl{50%{box-shadow:0 8px 42px rgba(198,255,82,.6)}}
+.btn{border:0;border-radius:12px;padding:10px 14px;font:600 13px Poppins;background:var(--lime);color:var(--g);cursor:pointer}.btn.s{background:transparent;color:var(--lime);border:1.5px solid var(--lime)}.btn:disabled{opacity:.45}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.item{background:rgba(255,255,255,.05);border-radius:14px;padding:12px;margin-bottom:8px;cursor:pointer;border:1px solid transparent}.item.on{border-color:var(--lime)}.item.ok{border-color:var(--em);background:rgba(29,185,84,.15)}.item.no{border-color:var(--or);background:rgba(255,138,61,.12)}
+input{width:100%;padding:12px;border-radius:12px;border:1px solid rgba(198,255,82,.25);background:rgba(0,0,0,.25);color:var(--ink);font:500 14px Inter;margin-bottom:10px}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);display:flex;background:rgba(7,31,24,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(198,255,82,.18);padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:none;border:0;color:var(--mut);font:600 10px Poppins;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}nav b{font-size:20px;filter:grayscale(1) opacity(.7)}nav .a{color:var(--lime)}nav .a b{filter:none}
+.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--lime);color:var(--g);font:700 13px Poppins;padding:10px 18px;border-radius:99px;z-index:9;box-shadow:0 6px 24px #0008}
+.big{font:800 34px Poppins;color:var(--lime)}
+</style></head><body><div id="app"></div>
+<script src="vendor/react.production.min.js"></script>
+<script src="vendor/react-dom.production.min.js"></script>
+<script src="vendor/htm.umd.js"></script>
+<script>
+const {useState,useEffect}=React,html=htm.bind(React.createElement);
+const LOGO="assets/logo-fechae.png",ICON="assets/icone-fechae.png",MASC="assets/mascote-fechae.jpg";
+const TABS=[["home","🏠","Home"],["des","🛟","Destravaê"],["tre","🎓","Treinaê"],["are","⚔️","Arena"],["bib","📚","Biblioteca"],["per","👤","Perfil"]];
+const LV=["Iniciante","Prospector","Negociador","Fechador","Mestre das Vendas"];
+const OBJ=[
+{t:"Tá caro",r:["Entendo! Caro comparado a quê? Vamos olhar o que você recebe de retorno em vez de só o preço.","Posso te mostrar o custo por dia de uso? Normalmente o valor cai bastante quando dividimos assim."],tip:"Não dê desconto na primeira reação: descubra a referência de preço do cliente."},
+{t:"Vou pensar",r:["Claro! Pra eu te ajudar a decidir: o que exatamente ficou em aberto — preço, prazo ou resultado?","Combinado! Posso te chamar amanhã às 10h pra tirar qualquer dúvida que surgir?"],tip:"“Vou pensar” quase sempre esconde uma objeção. Faça uma pergunta e combine o próximo passo."},
+{t:"Já tenho fornecedor",r:["Ótimo, isso mostra que você valoriza qualidade! Posso ser seu plano B com uma condição de teste?","O que você mais gostaria de melhorar com o fornecedor atual? Às vezes complementamos em vez de substituir."],tip:"Não ataque o concorrente. Busque uma brecha pequena para entrar."},
+{t:"Me chama depois",r:["Sem problema! Qual o melhor dia e horário? Já deixo agendado pra não esquecer.","Posso mandar um resumo de 3 linhas por WhatsApp pra você ver com calma?"],tip:"Sempre saia da conversa com data marcada."}];
+const LES=[["Abordagem em 30 segundos","Apresente-se, mostre relevância e faça UMA pergunta. Evite despejar informações logo de cara.","Qual pergunta abre melhor a conversa?",["Quer comprar hoje?","O que te trouxe até aqui hoje?"],1],
+["Escuta ativa","Quem pergunta conduz a venda. Repita o que o cliente disse com suas palavras antes de responder.","O que fazer antes de responder?",["Rebater logo","Reformular o que o cliente disse"],1],
+["Fechamento sem pressão","Resuma o valor, proponha o próximo passo e dê duas opções de decisão.","Qual é um bom fechamento?",["Prefere fechar hoje ou amanhã cedo?","Então, vai querer ou não?"],0],
+["Pós-venda que vende","Um bom contato depois da venda gera indicações e recompra.","Quando fazer o primeiro contato de pós-venda?",["Só quando o cliente reclamar","Poucos dias após a entrega"],1]];
+const ARE=[["Cliente diz: “Vou pensar”","Melhor resposta?",["Ok, qualquer coisa me chama","O que ficou em aberto pra você decidir?","Faço 10% de desconto agora"],1],
+["Cliente diz: “Tá caro”","Melhor resposta?",["Caro comparado a quê?","Então não é pra você","Seu concorrente é pior"],0],
+["Cliente some após o orçamento","Melhor ação?",["Esperar ele voltar","Mandar mensagem curta com um próximo passo claro","Ligar 5 vezes no mesmo dia"],1]];
+const DAILY=["Qual destes é o melhor gatilho para retomar um cliente parado?",["Oi, sumiu!","Separei uma condição que combina com o que você pediu — posso te mostrar?"],1];
+const LIB=[["Primeiro contato (WhatsApp)","Oi, [nome]! Aqui é [seu nome] da [empresa]. Vi que você buscou [produto] — posso te ajudar a escolher em 2 minutos?"],["Retomada de orçamento","Oi, [nome]! Passando pra saber se ficou alguma dúvida sobre o orçamento. Posso ajustar algo pra facilitar sua decisão?"],["Pedido de indicação","[Nome], fico feliz que deu certo! Conhece alguém que também precisa de [produto]? Posso cuidar bem dele(a) igual cuidei de você."],["Fechamento com duas opções","Pra fechar, prefere o plano A ou o B? Já deixo tudo pronto pra começar [data]."]];
+const BADGES=[["🚀","Primeiro passo",x=>x.xp>=10],["🛟","Destravador",x=>x.d>=1],["🎓","Aluno dedicado",x=>x.t>=2],["⚔️","Gladiador",x=>x.a>=2],["🔥","Nível 3",x=>x.xp>=600]];
+const SAVE="fechae-demo";
+function load(){try{return JSON.parse(localStorage.getItem(SAVE))||null}catch(e){return null}}
+function App(){
+const [tab,setTab]=useState("home");
+const [s,setS]=useState(()=>load()||{xp:0,name:"",done:{}});
+const [toast,setToast]=useState("");
+useEffect(()=>{try{localStorage.setItem(SAVE,JSON.stringify(s))}catch(e){}},[s]);
+useEffect(()=>{if(toast){const t=setTimeout(()=>setToast(""),1800);return()=>clearTimeout(t)}},[toast]);
+const cnt=p=>Object.keys(s.done).filter(k=>k.startsWith(p)).length;
+const st={xp:s.xp,d:cnt("d"),t:cnt("t"),a:cnt("a")};
+const gain=(id,xp)=>{if(s.done[id])return false;setS(o=>({...o,xp:o.xp+xp,done:{...o.done,[id]:1}}));setToast("+"+xp+" XP ⚡");return true};
+const lvl=Math.floor(s.xp/300),inLvl=s.xp%300,P={s,setS,gain,setTab,setToast,st,lvl,inLvl};
+const copy=async x=>{try{await navigator.clipboard.writeText(x);setToast("Copiado! ✅")}catch(e){setToast("Selecione o texto e copie")}};
+P.copy=copy;
+const V={home:Home,des:Destrava,tre:Treina,are:Arena,bib:Biblio,per:Perfil}[tab];
+return html`<div>${toast&&html`<div class="toast">${toast}</div>`}
+<div class="top"><img src=${LOGO} alt="FECHAÊ!"/><span class="tag">Protótipo · dados demonstrativos</span></div>
+<${V} ...${P}/>
+<nav>${TABS.map(([k,i,l])=>html`<button key=${k} class=${tab===k?"a":""} onClick=${()=>{setTab(k);scrollTo(0,0)}}><b>${i}</b>${l}</button>`)}</nav></div>`}
+function Quiz({q,id,xp,gain,after}){
+const [pick,setPick]=useState(null);
+return html`<div><p style=${{marginBottom:10,fontWeight:600}}>${q[0]}</p>
+${q[1].map((o,i)=>html`<div key=${i} class=${"item "+(pick===null?"":i===q[2]?"ok":i===pick?"no":"")} onClick=${()=>{if(pick!==null)return;setPick(i);if(i===q[2]){gain(id,xp)}}}>${o}</div>`)}
+${pick!==null&&html`<p class="mut" style=${{margin:"6px 0"}}>${pick===q[2]?"Boa! Resposta certa 🎯":"Quase! A resposta certa está destacada em verde."}</p>`}
+${pick!==null&&after&&html`<button class="btn s" onClick=${after}>Próximo</button>`}</div>`}
+function Home({s,lvl,inLvl,setTab,gain,st}){
+const [open,setOpen]=useState(false);
+const done=!!s.done.daily;
+return html`<div>
+<div class="card hero"><img src=${MASC} alt="Mascote Fechaê"/><div><h1>Fala, ${s.name||"Vendedor"}! 👊</h1><p class="mut">Pronto pra vender mais hoje?</p></div></div>
+<div class="card"><div class="row"><div><div class="mut">Nível ${lvl+1}</div><h2 style=${{margin:0}}>${LV[Math.min(lvl,4)]}</h2></div><div class="big">${s.xp}<span class="mut"> XP</span></div></div>
+<div class="bar"><i style=${{width:inLvl/3+"%"}}></i></div><p class="mut">${300-inLvl} XP para o próximo nível</p></div>
+<button class="cta" onClick=${()=>setTab("des")}>🛟 Preciso destravar uma venda!</button>
+<div class="card"><div class="row"><h2>🎯 Desafio do dia</h2><span class="tag">+50 XP</span></div>
+${done?html`<p>Desafio concluído! Volte amanhã 🔥</p>`:open?html`<${Quiz} q=${DAILY} id="daily" xp=${50} gain=${gain}/>`:html`<p class="mut" style=${{marginBottom:10}}>Responda 1 pergunta rápida e ganhe XP.</p><button class="btn" onClick=${()=>setOpen(true)}>Aceitar desafio</button>`}</div>
+<div class="grid"><div class="card"><div class="big">${st.d}</div><p class="mut">vendas destravadas</p></div><div class="card"><div class="big">${st.t}</div><p class="mut">aulas concluídas</p></div></div></div>`}
+function Destrava({gain,copy,setTab}){
+const [o,setO]=useState(null);
+return html`<div><h2>🛟 Destravaê</h2><p class="mut" style=${{marginBottom:12}}>Cliente travou? Escolha a objeção e veja respostas sugeridas.</p>
+${OBJ.map((x,i)=>html`<div key=${i} class=${"item "+(o===i?"on":"")} onClick=${()=>setO(o===i?null:i)}><h3>${x.t}</h3>
+${o===i&&html`<div onClick=${e=>e.stopPropagation()} style=${{marginTop:10}}>${x.r.map((r,j)=>html`<div key=${j} class="card" style=${{padding:12,marginBottom:8}}><p style=${{fontSize:14}}>${r}</p><div style=${{display:"flex",gap:8,marginTop:10}}><button class="btn s" onClick=${()=>copy(r)}>Copiar</button><button class="btn" onClick=${()=>gain("d"+i+j,15)}>Usei! +15 XP</button></div></div>`)}<p class="mut">💡 ${x.tip}</p></div>`}</div>`)}
+<p class="mut">Respostas pré-escritas de demonstração. A IA conversacional virá em uma próxima etapa.</p></div>`}
+function Treina({gain,s}){
+const [i,setI]=useState(null);
+if(i!==null){const l=LES[i];return html`<div><button class="btn s" onClick=${()=>setI(null)}>← Voltar</button><div class="card" style=${{marginTop:12}}><h2>${l[0]}</h2><p style=${{marginBottom:14}}>${l[1]}</p><${Quiz} q=${[l[2],l[3],l[4]]} id=${"t"+i} xp=${40} gain=${gain}/></div></div>`}
+return html`<div><h2>🎓 Treinaê</h2>${LES.map((l,k)=>html`<div class=${"item "+(s.done["t"+k]?"ok":"")} key=${k} onClick=${()=>setI(k)}><div class="row"><div><h3>${l[0]}</h3><p class="mut">Aula ${k+1} · 2 min · +40 XP</p></div><span>${s.done["t"+k]?"✅":"▶"}</span></div></div>`)}</div>`}
+function Arena({gain,s}){
+const [k,setK]=useState(0);
+const q=ARE[k];
+return html`<div><h2>⚔️ Arena</h2><p class="mut" style=${{marginBottom:12}}>Desafios solo contra você mesmo. Ainda não há ranking: ele só aparecerá quando existirem usuários reais.</p>
+<div class="card"><div class="row"><h3>Desafio ${k+1} de ${ARE.length}</h3><span class="tag">+30 XP</span></div><p class="mut" style=${{margin:"6px 0 12px"}}>${q[0]}</p>
+<${Quiz} key=${k} q=${[q[1],q[2],q[3]]} id=${"a"+k} xp=${30} gain=${gain} after=${k<ARE.length-1?()=>setK(k+1):()=>setK(0)}/></div></div>`}
+function Biblio({copy}){
+const [f,setF]=useState("");
+const r=LIB.filter(x=>(x[0]+x[1]).toLowerCase().includes(f.toLowerCase()));
+return html`<div><h2>📚 Biblioteca</h2><input placeholder="Buscar modelo de mensagem…" value=${f} onChange=${e=>setF(e.target.value)} onInput=${e=>setF(e.target.value)}/>
+${r.map((x,i)=>html`<div class="card" key=${i}><h3>${x[0]}</h3><p class="mut" style=${{margin:"6px 0 10px"}}>${x[1]}</p><button class="btn" onClick=${()=>copy(x[1])}>Copiar modelo</button></div>`)}
+${!r.length&&html`<p class="mut">Nada encontrado.</p>`}</div>`}
+function Perfil({s,setS,st,lvl,setToast}){
+return html`<div><h2>👤 Perfil</h2><div class="card hero"><img src=${ICON} alt="" style=${{width:64,height:64}}/><div><h3>${s.name||"Vendedor"}</h3><p class="mut">Nível ${lvl+1} · ${LV[Math.min(lvl,4)]} · ${s.xp} XP</p></div></div>
+<div class="card"><p class="mut" style=${{marginBottom:6}}>Seu nome</p><input value=${s.name} maxLength="24" placeholder="Como quer ser chamado?" onChange=${e=>setS({...s,name:e.target.value})} onInput=${e=>setS({...s,name:e.target.value})}/></div>
+<div class="card"><h3 style=${{marginBottom:10}}>Conquistas</h3><div class="grid">${BADGES.map(([i,n,f])=>html`<div class="item" key=${n} style=${{opacity:f(st)?1:.4,cursor:"default"}}>${i} ${n}</div>`)}</div></div>
+<button class="btn s" onClick=${()=>{setS({xp:0,done:{},name:s.name});setToast("Progresso zerado")}}>Reiniciar progresso de demonstração</button></div>`}
+ReactDOM.createRoot(document.getElementById("app")).render(html`<${App}/>`);
+</script></body></html>
